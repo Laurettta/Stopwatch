@@ -1,17 +1,48 @@
-const time_el = document.querySelector('.watch .time');
-const start_btn = document.getElementById('start');
-const stop_btn = document.getElementById("stop");
-const reset_btn = document.getElementById("reset");
+var seconds = 00;
+var tens= 00;
+var OutputSeconds = document.getElementById('second');
+var OutputTens = document.getElementById('tens');
+var buttonStart = document.getElementById('btn-start');
+var buttonStop = document.getElementById('btn-stop');
+var buttonReset = document.getElementById('btn-reset');
+var Interval;
 
-let seconds = 7460;
-let interval = null;
+buttonStart.addEventListener('click', () => {
+    clearInterval(Interval);
+    Interval = setInterval(startTime, 10);
+});
 
-function timer ()  {
+buttonStop.addEventListener('click', () => {
+    clearInterval(Interval);
+});
+
+buttonReset.addEventListener('click', () => {
+    clearInterval(Interval);
+    tens = "00";
+    seconds = "00";
+    OutputSeconds.innerHTML = seconds;
+    OutputTens.innerHTML = tens;
+});
+
+function startTime(){
+    tens++;
+    if(tens <= 9){
+        OutputTens.innerHTML = "0" + tens;
+    }
+
+    if(tens > 9){
+        OutputTens.innerHTML = tens;
+    }
+
+if(tens > 99){
     seconds++;
+    OutputSeconds.innerHTML = "0" + seconds;
+    tens = 0;
+    OutputTens.innerHTML = "0" + tens;
+}
 
-    let hrs = Math.floor(seconds / 3600);
-    let mins = Math.floor ((seconds - (hrs * 3600)) / 60);
-    let secs = seconds % 60;
+if(seconds > 9) {
+    OutputSeconds.innerHTML = seconds
+}
 
-    time_el.innerText = '${hrs}:${mins}:${secs}';
 }
